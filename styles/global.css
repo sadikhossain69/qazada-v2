@@ -227,6 +227,58 @@ footer .Mui-disabled {
   background-position: center;
 }
 
+/* -------------------
+-------------------- */
+.div_raper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 20px;
+}
+.blow_dot {
+  position: absolute;
+  left: 0;
+  top: -25px;
+  width: 400px;
+  height: 400px;
+  transform: rotate(270deg);
+  margin: 25px;
+}
+
+.pd-details-big-device .swiper-view-big-image {
+  position: absolute;
+  right: -5px;
+  /* left: 0; */
+  top: 0;
+  height: 600px;
+  width: 80%;
+}
+.swiper-view-img-flex {
+  display: flex;
+  flex-direction: column;
+  /* margin-right: 10px; */
+}
+.swiper-view-img-flex img {
+  /* width: 400px;
+  height: 300px; */
+  width: auto;
+  height: auto;
+  transform: rotate(90deg);
+  /* margin: 10px; */
+  padding-right: 20px;
+  object-fit: cover;
+}
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  display: none !important;
+}
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  display: none !important;
+}
+/* -------------------
+-------------------- */
+
 .pd-details .swiper-view {
   height: 500px;
   width: 100%;

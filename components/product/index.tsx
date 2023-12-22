@@ -546,13 +546,13 @@ export const Product = ({ id }: { id: string }) => {
     <>  
       <Stack sx={{ mx: 5 }}>
         <Grid container mb={3} justifyContent="space-evenly">
-          <Grid item md={4} xs={12} sm={10}>
+          <Grid item md={6} xs={12} sm={10}>
             {sliderImages && (
               <Slider images={sliderImages} youtubeLink={productData?.youtube_link} />
             )}
           </Grid>
           {productData && (
-            <Grid item md={6} xs={12} sm={10}>
+            <Grid item md={5} xs={12} sm={10}>
               <Stack id="myPortal" sx={divStyles} />
 
               {productData?.product_slug &&
