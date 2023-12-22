@@ -898,7 +898,7 @@ export const Product = ({ id }: { id: string }) => {
                         onClick={handleWhatsAppClick}
                         sx={{ color: "red", fontWeight: "bold" }}>
                         Click Here
-                        <WhatsAppIcon sx={{ marginLeft: 1 }} />
+                        <WhatsAppIcon sx={{ marginLeft: 1, color: "green" }} />
                       </Button>
 
                     </Link>
