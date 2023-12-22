@@ -9,6 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import EastIcon from '@mui/icons-material/East';
 import { grey } from "@mui/material/colors";
 import ProdsListSkeleton from "components/common/skeletons/prodsListSekeleton";
 import { YellowButton } from "components/common/styled/buttons";
@@ -80,76 +81,135 @@ export default function ProductsByCat({ title, productsData, loading }: Props) {
             productsData.map((item, index) => {
               const locationData = getLocationData(item.location_data);
               return (
-                <Grid
-                  item
-                  key={index}
-                  xs={6}
-                  md={4}
-                  lg={3}
-                  component="div"
-                  onMouseOver={() => {
-                    handleMouseOver(index);
-                  }}
-                  onMouseLeave={() => {
-                    handleMouseLeave(index);
-                  }}
-                  className="product-card"
-                  sx={styles.prodCardStyles}
-                >
-                  <div className="product-card-container">
-                    <Link href={`/product/${item.product_slug}`} className="product-card-desing" >
-                      <Paper elevation={4} sx={paperStyles}>
-                        <div className="product-card-top">
-                          <Box sx={{ position: "relative", borderRadius: "15px !important" }}>
-                            {appConfig.product.displayYoutubeThumbnail && item.youtube_link ? (
-                              <img
-                                src={`https://img.youtube.com/vi/${item.youtube_link}/sddefault.jpg`}
-                                alt="video-thumb"
-                                className="prod-box-img main-prod-card-img"
-                              />
-                            ) : (
-                              <img
-                                src={`${appConfig.api.imgUrl}/${item.image_name[0].name}?w=680&fit=crop&auto=format`}
-                                loading="lazy"
-                                className="prod-box-img main-prod-card-img"
-                              />
-                            )}
-                          </Box>
-                        </div>
-                        <div className="product-card-bottom-part">
-                          <Box sx={{ mx: { sm: 2, xs: 1 }, }}>
-                            <Stack direction={"row"} justifyContent="space-between" alignItems="center">
-                              <Typography variant="body2" sx={styles.prodTitle} noWrap={false}>
-                                {item.product_name}
+                <>
+                  {/* <Grid
+                    item
+                    key={index}
+                    xs={6}
+                    md={4}
+                    lg={3}
+                    component="div"
+                    onMouseOver={() => {
+                      handleMouseOver(index);
+                    }}
+                    onMouseLeave={() => {
+                      handleMouseLeave(index);
+                    }}
+                    className="product-card"
+                    sx={styles.prodCardStyles}
+                  >
+                    <div className="product-card-container">
+                      <Link href={`/product/${item.product_slug}`} className="product-card-desing" >
+                        <Paper elevation={4} sx={paperStyles}>
+                          <div className="product-card-top">
+                            <Box sx={{ position: "relative", borderRadius: "15px !important" }}>
+                              {appConfig.product.displayYoutubeThumbnail && item.youtube_link ? (
+                                <img
+                                  src={`https://img.youtube.com/vi/${item.youtube_link}/sddefault.jpg`}
+                                  alt="video-thumb"
+                                  className="prod-box-img main-prod-card-img"
+                                />
+                              ) : (
+                                <img
+                                  src={`${appConfig.api.imgUrl}/${item.image_name[0].name}?w=680&fit=crop&auto=format`}
+                                  loading="lazy"
+                                  className="prod-box-img main-prod-card-img"
+                                />
+                              )}
+                            </Box>
+                          </div>
+                          <div className="product-card-bottom-part">
+                            <Box sx={{ mx: { sm: 2, xs: 1 }, }}>
+                              <Stack direction={"row"} justifyContent="space-between" alignItems="center">
+                                <Typography variant="body2" sx={styles.prodTitle} noWrap={false}>
+                                  {item.product_name}
+                                </Typography>
+                              </Stack>
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  ...styles.prodPriceText,
+                                  color: locationData.discounted_price ? "gray" : "#222222",
+                                }}
+                              >
+                                {appConfig.product.currency + " . "}&nbsp;
+                                <Box component="span" sx={styles.prodPriceNumber}>
+                                  {locationData.selling_price}
+                                </Box>
+
                               </Typography>
-                            </Stack>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                ...styles.prodPriceText,
-                                color: locationData.discounted_price ? "gray" : "#222222",
-                              }}
-                            >
-                              {appConfig.product.currency + " . "}&nbsp;
-                              <Box component="span" sx={styles.prodPriceNumber}>
-                                {locationData.selling_price}
-                              </Box>
-
-                            </Typography>
 
 
+                            </Box>
+                          </div>
+                        </Paper>
+                      </Link>
+                    </div>
+                  </Grid> */}
+                  <Grid
+                    item
+                    key={index}
+                    xs={6}
+                    md={6}
+                    lg={3}
+                    component="div"
+                    onMouseOver={() => {
+                      handleMouseOver(index);
+                    }}
+                    onMouseLeave={() => {
+                      handleMouseLeave(index);
+                    }}
+                    className="category-card"
+                    sx={{ ...styles.categorieCardStyles, borderRadius: `0px !important`, }}
+                  >
+                    <Link href={`/product/${item.product_slug}}`}>
+                      <Paper elevation={4} sx={{ borderRadius: `0px !important`, boxShadow: `none !important`, }}>
+                        <Box sx={{ position: "relative", borderRadius: `0px !important`, backgroundColor: "#E7E7E7", padding: "5px", paddingBottom: "0px" }}>
+                          {appConfig.product.displayYoutubeThumbnail && item.youtube_link ? (
+                            <img
+                              src={`https://img.youtube.com/vi/${item.youtube_link}/sddefault.jpg`}
+                              alt="video-thumb"
+                              className="cate-box-img main-cate-card-img"
+                            />
+                          ) : (
+                            <img
+                              src={`${appConfig.api.imgUrl}/${item.image_name[0].name}?w=680&fit=crop&auto=format`}
+                              loading="lazy"
+                              className="cate-box-img main-cate-card-img"
+                            />
+                          )}
+                        </Box>
+                        <Box sx={{ mx: { md: 1, sm: 2, xs: 1 }, }}>
+                          <Box sx={{ ...styles.prodPriceNumber, paddingBottom: "5px" }}>
+                            {item.product_name} <EastIcon sx={{ marginLeft: 0, fontSize: "23px", paddingTop: "10px" }} />
+                          </Box >
+
+                        </Box>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            ...styles.prodPriceText,
+                            color: locationData.discounted_price ? "gray" : "#222222",
+                            mx: { md: 3, sm: 2, xs: 1 }, py: 0
+                          }}
+                        >
+                          {appConfig.product.currency + " . "}&nbsp;
+                          <Box component="span" sx={styles.prodPriceNumber}>
+                            {locationData.selling_price}
                           </Box>
-                        </div>
+
+                        </Typography>
                       </Paper>
                     </Link>
-                  </div>
-                </Grid>
+                  </Grid>
+                </>
               );
             })
           ) : (
             <ProdsListSkeleton />
           )}
         </Grid>
+
       </div>
 
     </>
