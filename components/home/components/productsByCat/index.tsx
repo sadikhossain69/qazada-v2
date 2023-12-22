@@ -189,13 +189,35 @@ export default function ProductsByCat({ title, productsData, loading }: Props) {
                           variant="body2"
                           sx={{
                             ...styles.prodPriceText,
-                            color: locationData.discounted_price ? "gray" : "#222222",
+                            // color: locationData.discounted_price ? "gray" : "#222222",
                             mx: { md: 3, sm: 2, xs: 1 }, py: 0
                           }}
                         >
-                          {appConfig.product.currency + " . "}&nbsp;
-                          <Box component="span" sx={styles.prodPriceNumber}>
-                            {locationData.selling_price}
+
+                          <Box color={`red`} pr={1} component="span" sx={styles.prodPriceNumber}>
+                            <p>
+                              {
+                                locationData.discounted_price ?
+                                <>
+                                  {appConfig.product.currency + "."}{locationData.discounted_price}
+                                </>
+                                :
+                                <>
+                                  {appConfig.product.currency + "."}{locationData.selling_price}
+                                </>
+                              }
+                            </p>
+                          </Box> &nbsp;
+                          <Box color={`gray`} component="span" sx={styles.prodPriceNumber}>
+                            
+                            <p>
+                              {
+                                locationData.discounted_price &&
+                                <del>
+                                  {appConfig.product.currency + "."}{locationData.selling_price}
+                                </del>
+                              }
+                            </p>
                           </Box>
 
                         </Typography>
