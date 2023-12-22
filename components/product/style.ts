@@ -11,6 +11,7 @@ export const placeOrderButton: muiSxPropType = {
   },
   fontWeight: appStyles.w600,
   fontSize: "17px",
+  border: "0px",
 };
 
 export const mobilePlaceOrderButton: muiSxPropType = {
@@ -23,6 +24,7 @@ export const mobilePlaceOrderButton: muiSxPropType = {
   fontWeight: appStyles.w600,
   fontSize: "17px",
   width: "50%",
+  border: "0px",
 };
 
 export const outOfStock: muiSxPropType = {
@@ -45,6 +47,7 @@ export const addMoreBtn: muiSxPropType = {
   },
   fontWeight: appStyles.w600,
   fontSize: "17px",
+  border: "0px",
 };
 
 export const mobileAddMoreBtn: muiSxPropType = {
@@ -58,7 +61,8 @@ export const mobileAddMoreBtn: muiSxPropType = {
   fontSize: "17px",
   width: "50%",
   backgroundColor: "#FF0000",
-  color: "wheat"
+  color: "wheat",
+  border: "0px"
 };
 
 
