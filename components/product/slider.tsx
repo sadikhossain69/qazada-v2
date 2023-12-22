@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ReactImageMagnify from 'easy-magnify';
 // import ReactImageMagnify from "react-image-magnify";
 import * as styles from "./style";
+import { useWindowWidth } from "@react-hook/window-size";
 
 interface Props {
   images: string[];
@@ -23,6 +24,7 @@ export const Slider: React.FC<Props> = ({ images, youtubeLink }) => {
   const [controlledSwiper, setControlledSwiper] = useState<SwiperCore | undefined>();
   const [open, setOpen] = React.useState(false);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const onlyWidth = useWindowWidth();
 
   const handleOpen = (event: React.MouseEvent<HTMLImageElement, MouseEvent>, name: string) => {
     setSelectedImg(name);
@@ -49,55 +51,58 @@ export const Slider: React.FC<Props> = ({ images, youtubeLink }) => {
 
   return (
     <>
-      <Box className="pd-details">
-        <Swiper
-          slidesPerView={1}
-          modules={[Navigation, Thumbs, Controller]}
-          navigation={images && images.length > 1 ? true : false}
-          onSwiper={setControlledSwiper}
-          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-          className="swiper-view"
-          controller={{
-            control: controlledSwiper && !controlledSwiper.destroyed ? controlledSwiper : undefined,
-          }}
-        >
-          {youtubeLink && (
-            <SwiperSlide>
-              <div className="iframe-container-div">
-                <iframe
-                  src={`https://www.youtube.com/embed/${youtubeLink}`}
-                  frameBorder="0"
-                ></iframe>
-              </div>
-            </SwiperSlide>
-          )}
-          <Stack component="span" sx={{ display: { xs: "flex", md: "none" } }}>
-            {images?.map((name, index) => (
-              <SwiperSlide aria-valuetext={name} key={index}>
-                <ReactImageMagnify
-                  {...{
+      {
+        onlyWidth < 900 &&
+        <>
+          <Box className="pd-details">
+            <Swiper
+              slidesPerView={1}
+              modules={[Navigation, Thumbs, Controller]}
+              navigation={images && images.length > 1 ? true : false}
+              onSwiper={setControlledSwiper}
+              thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+              className="swiper-view"
+              controller={{
+                control: controlledSwiper && !controlledSwiper.destroyed ? controlledSwiper : undefined,
+              }}
+            >
+              {youtubeLink && (
+                <SwiperSlide>
+                  <div className="iframe-container-div">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${youtubeLink}`}
+                      frameBorder="0"
+                    ></iframe>
+                  </div>
+                </SwiperSlide>
+              )}
+              <Stack component="span" sx={{ display: { xs: "flex", md: "none" } }}>
+                {images?.map((name, index) => (
+                  <SwiperSlide aria-valuetext={name} key={index}>
+                    <ReactImageMagnify
+                      {...{
 
-                    smallImage: {
-                      alt: `prodcut-${name}`,
-                      isFluidWidth: true,
-                      src: `${appConfig.api.imgUrl}/${name}`,
-                      // width: 140,
-                      // height: 162,
-                    },
-                    largeImage: {
-                      src: `${appConfig.api.imgUrl}/${name}`,
-                      width: 1800,
-                      height: 1800,
-                    },
-                    enlargedImagePortalId: "myPortal",
-                    onClick: (event: any) => handleOpen(event, name),
-                    loading: "lazy",
-                  }}
-                />
-              </SwiperSlide>
-            ))}
-          </Stack>
-          {/* <Stack component="span" sx={{ display: { xs: "none", md: "flex" } }}>
+                        smallImage: {
+                          alt: `prodcut-${name}`,
+                          isFluidWidth: true,
+                          src: `${appConfig.api.imgUrl}/${name}`,
+                          // width: 140,
+                          // height: 162,
+                        },
+                        largeImage: {
+                          src: `${appConfig.api.imgUrl}/${name}`,
+                          width: 1800,
+                          height: 1800,
+                        },
+                        enlargedImagePortalId: "myPortal",
+                        onClick: (event: any) => handleOpen(event, name),
+                        loading: "lazy",
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Stack>
+              {/* <Stack component="span" sx={{ display: { xs: "none", md: "flex" } }}>
           {images?.map((name, index) => (
             <SwiperSlide aria-valuetext={name} key={index}>
               <img
@@ -110,61 +115,63 @@ export const Slider: React.FC<Props> = ({ images, youtubeLink }) => {
           ))}
           </Stack> */}
 
-        </Swiper>
-        <div>
-          <Swiper
-            modules={[Navigation, Thumbs, Controller]}
-            onSwiper={setThumbsSwiper}
-            spaceBetween={30}
-            slidesPerView={3}
-            freeMode={true}
-            watchSlidesProgress={true}
-            className="swiper-preview"
-          >
-            {youtubeLink && (
-              <SwiperSlide>
-                <img
-                  src={`https://img.youtube.com/vi/${youtubeLink}/sddefault.jpg`}
-                  alt="video-thumb"
-                />
-              </SwiperSlide>
-            )}
-            {images?.map((name, index) => (
-              <SwiperSlide key={index}>
-                <img src={`${appConfig.api.imgUrl}/${name}`} alt="product-thumb" loading="lazy" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <Modal open={open} onClose={handleClose}>
-          <Box sx={styles.imageModalStyle}>
-            <IconButton sx={styles.imageModalCloseButton} onClick={handleClose}>
-              {" "}
-              <CloseIcon />
-            </IconButton>
-            <div className="modal-slider-container">
+            </Swiper>
+            <div>
               <Swiper
                 modules={[Navigation, Thumbs, Controller]}
-                initialSlide={controlledSwiper?.activeIndex}
-                navigation={images && images.length > 1 ? true : false}
-                slidesPerView={1}
-                // className="swiper-view"
-                onSlideChange={(swiper) => controlledSwiper?.slideTo(swiper.activeIndex)}
+                onSwiper={setThumbsSwiper}
+                spaceBetween={30}
+                slidesPerView={3}
+                freeMode={true}
+                watchSlidesProgress={true}
+                className="swiper-preview"
               >
-                {images?.map((name, index) => (
-                  <SwiperSlide aria-valuetext={name} key={index}>
+                {youtubeLink && (
+                  <SwiperSlide>
                     <img
-                      src={`${appConfig.api.imgUrl}/${name}`}
-                      alt={`product-${name}`}
-                      loading="lazy"
+                      src={`https://img.youtube.com/vi/${youtubeLink}/sddefault.jpg`}
+                      alt="video-thumb"
                     />
+                  </SwiperSlide>
+                )}
+                {images?.map((name, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={`${appConfig.api.imgUrl}/${name}`} alt="product-thumb" loading="lazy" />
                   </SwiperSlide>
                 ))}
               </Swiper>
             </div>
+            <Modal open={open} onClose={handleClose}>
+              <Box sx={styles.imageModalStyle}>
+                <IconButton sx={styles.imageModalCloseButton} onClick={handleClose}>
+                  {" "}
+                  <CloseIcon />
+                </IconButton>
+                <div className="modal-slider-container">
+                  <Swiper
+                    modules={[Navigation, Thumbs, Controller]}
+                    initialSlide={controlledSwiper?.activeIndex}
+                    navigation={images && images.length > 1 ? true : false}
+                    slidesPerView={1}
+                    // className="swiper-view"
+                    onSlideChange={(swiper) => controlledSwiper?.slideTo(swiper.activeIndex)}
+                  >
+                    {images?.map((name, index) => (
+                      <SwiperSlide aria-valuetext={name} key={index}>
+                        <img
+                          src={`${appConfig.api.imgUrl}/${name}`}
+                          alt={`product-${name}`}
+                          loading="lazy"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </Box>
+            </Modal>
           </Box>
-        </Modal>
-      </Box>
+        </>
+      }
     </>
   );
 };
