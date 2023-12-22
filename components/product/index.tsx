@@ -543,7 +543,7 @@ export const Product = ({ id }: { id: string }) => {
   };
 
   return (
-    <>  
+    <>
       <Stack sx={{ mx: 5 }}>
         <Grid container mb={3} justifyContent="space-evenly">
           <Grid item md={6} xs={12} sm={10}>
@@ -892,11 +892,14 @@ export const Product = ({ id }: { id: string }) => {
                   <Stack sx={{ paddingLeft: "16px" }}>
                     <Typography sx={{ color: "red" }}>Want customized? </Typography>
                     <Link href="#" underline="none" sx={{ color: "black" }}>
-                      Talk to our stylish on WA.
+                      Talk to our stylish on WA. <br />
                       <Button
                         type="button"
                         onClick={handleWhatsAppClick}
-                        sx={{ color: "red", fontWeight: "bold" }}>Click Here</Button>
+                        sx={{ color: "red", fontWeight: "bold" }}>
+                        Click Here
+                        <WhatsAppIcon sx={{ marginLeft: 1 }} />
+                      </Button>
 
                     </Link>
                   </Stack>
